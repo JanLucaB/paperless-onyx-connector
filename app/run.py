@@ -1,7 +1,7 @@
 import requests
 import time
 
-from utils import get_environment_str, get_environment_int
+from utils import get_environment_str, get_environment_int, log
 
 
 PAPERLESS_BASE_URL: str = get_environment_str('PAPERLESS_BASE_URL')
@@ -33,7 +33,7 @@ def sync_paperless_to_onyx():
             document_title = queued_document['title']
             document_content = queued_document['content']
 
-            print(f'Syncing document ID {document_id}...')
+            log(f'Syncing document (ID: {document_id})...')
 
             document_data = {
                 'document': {
@@ -74,12 +74,12 @@ def sync_paperless_to_onyx():
 
             if tag_response.status_code != 200:
                 raise Exception(f'Failed to update tags for document ID {document_id}: {tag_response.text}')
+            
+            log(f'Document (ID: {document_id}) synced successfully.')
 
-
-print('Configuration loaded successfully.')
 
 if __name__ == '__main__':
-    print('Started')
+    log('Started')
 
     while True:
         sync_paperless_to_onyx()

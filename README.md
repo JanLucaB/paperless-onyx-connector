@@ -30,7 +30,7 @@ If you want significantly better OCR output than Paperless’ built-in OCR, have
 services:
   paperless-onyx-connector:
     image: jlbudde/paperless-onyx-connector:latest
-    
+    restart: unless-stopped
     environment:
       PAPERLESS_BASE_URL: "https://paperless.example.com" # Base URL of your Paperless-ngx instance
       PAPERLESS_API_KEY: "XXX" # API key used to authenticate against Paperless-ngx
@@ -40,4 +40,5 @@ services:
       ONYX_API_KEY: "XXX" # API key used to authenticate against Onyx
       ONYX_CONNECTOR_ID: "2" # Connector ID in Onyx to use for this integration
       SYNC_DELAY_SECONDS: "5" # Delay (in seconds) between sync cycles
+      TZ: "Europe/Berlin" # servers time zone
 ```
